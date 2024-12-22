@@ -1,4 +1,4 @@
-# selenium-auto-message
+# Utilizando Selenium para mandar mensagens
 ---
 ## Automoção de mensagem para o aplicativo Whatsapp
 
