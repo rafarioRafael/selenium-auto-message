@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 
-user_data_dir = "C:/Users/rafae/AppData/Local/Google/Chrome/User Data"
+user_data_dir = "C:/Users/"seu_usuario"/AppData/Local/Google/Chrome/User Data"
 profile_dir = "DEFAULT"
 
 chrome_options = Options()
