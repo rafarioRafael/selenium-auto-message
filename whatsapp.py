@@ -9,23 +9,25 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 
-user_data_dir = "C:/Users/"seu_usuario"/AppData/Local/Google/Chrome/User Data"
-profile_dir = "DEFAULT"
+user_data_dir = "C:/Users/rafael.miranda/AppData/Local/Google/Chrome/User Data"
+profile_dir = "Default"
 
-chrome_options = Options()
-chrome_options.add_argument(f"user-data-dir={user_data_dir}")
-chrome_options.add_argument(f"profile-directory={profile_dir}")
+#keeping the data (cookies, cache, etc.) from the browser
+
+options = Options()
+options.add_argument("--user-data-dir=C:/selenium/whatsapp_profile")
+options.add_argument("--profile-directory=Default")
 
 service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service)
+driver = webdriver.Chrome(service=service, options=options)
 
 try:
     print('Abrindo o zap')
     driver.get('https://web.whatsapp.com/')
     time.sleep(15)
     
-    contato = '' #Nome do contato
-    palavras = 'mano' #Mensagem para enviar
+    contato = 'Wictor Acotubo' #Nome do contato
+    palavras = 'trava zap' #Mensagem para enviar
     #da para fazer uma lista com as palavras tbm, por isso foi usafo o for na linha 39
   
     print("Selecionando o  contato...")
@@ -36,17 +38,15 @@ try:
     contato_selecionado.click()
     print("Contato selecionado!")
 
-    for p in palavras:
-        print('Enviando mensagem..')
-        message_box_xpath = '//*[@id="main"]/footer/div[1]/div/span/div/div[2]/div[1]/div[2]/div[1]/p'
-        message_box = WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.XPATH, message_box_xpath))
-        )
-        #time.sleep(5)
-    
-        message_box.click()
-        message_box.send_keys(palavras)
-        message_box.send_keys(Keys.RETURN)
+    print('Enviando mensagem...')
+    message_box_xpath = '//*[@id="main"]/footer/div[1]/div/span/div/div[2]/div[1]/div[2]/div[1]/p'
+    message_box = WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((By.XPATH, message_box_xpath))
+    )
+    message_box.click()
+    message_box.send_keys(palavras)
+    message_box.send_keys(Keys.RETURN)
+
     print("Mensagem enviada com sucesso!")
     time.sleep(5)
 except Exception as e:
