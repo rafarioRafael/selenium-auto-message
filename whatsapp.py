@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 
-user_data_dir = "C:/Users/rafael.miranda/AppData/Local/Google/Chrome/User Data"
+user_data_dir = "C:/Users/ENV_VARIABLE/AppData/Local/Google/Chrome/User Data"
 profile_dir = "Default"
 
 #keeping the data (cookies, cache, etc.) from the browser
@@ -26,8 +26,8 @@ try:
     driver.get('https://web.whatsapp.com/')
     time.sleep(15)
     
-    contato = 'Wictor Acotubo' #Nome do contato
-    palavras = 'trava zap' #Mensagem para enviar
+    contato = '' #Nome do contato
+    palavras = '' #Mensagem para enviar
     #da para fazer uma lista com as palavras tbm, por isso foi usafo o for na linha 39
   
     print("Selecionando o  contato...")
