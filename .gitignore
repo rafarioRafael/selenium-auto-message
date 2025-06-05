@@ -1,0 +1,19 @@
+# Arquivos de dados pessoais
+contatos.csv
+
+# Dados de perfil do Chrome (cookies, sessões, etc.)
+whatsapp_profile/
+selenium/whatsapp_profile/
+
+# Arquivos temporários e caches do Python
+__pycache__/
+*.pyc
+*.pyo
+*.log
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Configurações locais / variáveis de ambiente
+.env

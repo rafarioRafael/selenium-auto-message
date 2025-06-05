@@ -1,7 +1,7 @@
 import csv
 import json
 import random
-import sys
+import schedule
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -11,9 +11,6 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
-
-#user_data_dir = "C:/Users/rafael.miranda/AppData/Local/Google/Chrome/User Data"
-#profile_dir = "Default"
 
 #keeping the data (cookies, cache, etc.) from the browser
 
@@ -37,7 +34,7 @@ def load_contacts(path_csv="contatos.csv"):
             contatos.append(linha['nome'])
     return contatos
 
-def buscar_contato(contato):
+def search_contact(contato):
     print("Buscando contato...")
 
     try:
@@ -57,6 +54,7 @@ def buscar_contato(contato):
         contato_selecionado = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, contato_xpath))
         )
+        time.sleep(2)
         contato_selecionado.click()
         print("Contato selecionado!")
 
@@ -64,27 +62,15 @@ def buscar_contato(contato):
     except Exception as e:
         print(f"Contato '{contato}' não encontrado ou não foi possível clicar.")
         return False
-
-try:
-    print('Abrindo o zap')
-    driver.get('https://web.whatsapp.com/')
-    time.sleep(15)
     
+def night_routine():
     contatos = load_contacts() #Nome do contato
     for contato in contatos:
         mensagem = choose_message() 
         print(f"Enviando para {contato}: {mensagem}")
 
-        if buscar_contato(contato):
+        if search_contact(contato):
             try:
-                #Mensagem para enviar
-                print("Selecionando o  contato...")
-                contato_xpath = f'//*[@id="side"]//span[contains(text(), "{contato}")]'
-                contato_selecionado = WebDriverWait(driver, 20).until(
-                    EC.presence_of_element_located((By.XPATH, contato_xpath))
-                )
-                contato_selecionado.click()
-                time.sleep(3)
                 #Enviando mensagem
                 message_box_xpath = '//*[@id="main"]/footer/div[1]/div/span/div/div[2]/div[1]/div[2]/div[1]/p'
                 message_box = WebDriverWait(driver, 20).until(
@@ -93,15 +79,27 @@ try:
                 message_box.click()
                 message_box.send_keys(mensagem)
                 message_box.send_keys(Keys.RETURN)
-                time.sleep(3)
+                time.sleep(2)
             except Exception as e:
                 print(f"Erro ao enviar mensagem para {contato}: {e}")
-    else:
-        print(f"Pulo o contato {contato} pois não foi possível localizá-lo.")
-            
+        else:
+            print(f"Pulo o contato {contato} pois não foi possível localizá-lo.")
+    print("Rotina terminada.")
 
-    print("Mensagem enviada com sucesso!")
-    time.sleep(5)
+try:
+    print('Abrindo o zap')
+    driver.get('https://web.whatsapp.com/')
+    time.sleep(15)
+
+    schedule.every().day.at("22:37").do(night_routine)
+    #schedule.every(1).minutes.do(night_routine)
+
+
+    print("aguardando horario...")
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
 except Exception as e:
     print(f"Ocorreu um erro: {e.with_traceback}")
 
