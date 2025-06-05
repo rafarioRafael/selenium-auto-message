@@ -15,12 +15,13 @@ Este projeto automatiza o envio de mensagens no WhatsApp Web usando Python + Sel
 
 ## 📁 Estrutura de Arquivos
 
-├── frases/
+```├── frases/
 │ └── goodnight.json # Frases de boa noite que serão enviadas
 ├── contatos.csv # Lista de nomes de contatos
 ├── whatsapp.py # Código principal
 ├── requirements.txt # Dependências do projeto
 └── README.md # Documentação do projeto
+```
 
 ## 📋 Exemplo de `contatos.csv`
 
@@ -28,5 +29,6 @@ Este projeto automatiza o envio de mensagens no WhatsApp Web usando Python + Sel
 nome
 Fulano
 Beltrano
+```
 
 pip install -r requirements.txt
