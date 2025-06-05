@@ -15,7 +15,8 @@ Este projeto automatiza o envio de mensagens no WhatsApp Web usando Python + Sel
 
 ## 📁 Estrutura de Arquivos
 
-```├── frases/
+```
+├── frases/
 │ └── goodnight.json # Frases de boa noite que serão enviadas
 ├── contatos.csv # Lista de nomes de contatos
 ├── whatsapp.py # Código principal
